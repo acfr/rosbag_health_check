@@ -1,0 +1,14 @@
+<package format="2">
+  <name>rosbag_health_check</name>
+  <version>0.0.1</version>
+  <description>This packaged opens and checks the integrity of rosbags</description>
+  <maintainer email="j.justin@acfr.usyd.edu.au">Jerome Justin</maintainer>
+  <author>Jerome Justin</author>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>xmlrpcpp</depend>
+  <depend>rosbag</depend>
+</package>
