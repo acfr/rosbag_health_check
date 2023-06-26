@@ -2,6 +2,6 @@
   <node pkg="rosbag_health_check" type="rosbag_health_check_node" name="rosbag_health_check"
     output="screen" required="true">
     <param name="bag_file" value="$(arg bag_file_name)" />
-    <rosparam file="$(find h264_bag_playback)/config/topics.yaml" />
+    <rosparam file="$(find rosbag_health_check)/config/topics.yaml" />
   </node>
 </launch>

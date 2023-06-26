@@ -11,6 +11,7 @@ catkin_package(
     include/${PROJECT_NAME}
   CATKIN_DEPENDS 
     roscpp
+    rosbag
     xmlrpcpp
 )
 
@@ -20,8 +21,7 @@ include_directories(
 )
 
 add_executable(${PROJECT_NAME}_node src/rosbag_health_check_node.cpp)
-
-roslaunch_add_file_check(launch)
+target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
 
 install(DIRECTORY launch
 		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

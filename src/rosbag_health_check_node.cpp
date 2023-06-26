@@ -4,19 +4,16 @@ namespace rosbag_health_check
 {
   bool BagChecker::Open(std::string file_name)
   {
-
-    bag_file_name = file_name;
-
     bag.open(file_name);
 
     if (!bag.isOpen())
     {
-      ROS_INFO_STREAM("Could not OPEN ba file " << file_name);
+      ROS_INFO_STREAM("Could not OPEN bag file " << file_name);
       return false;
     }
 
     XmlRpc::XmlRpcValue my_list;
-    ros::param::get("h264_bag_playback/topic_settings", my_list);
+    ros::param::get("rosbag_health_check/topic_settings", my_list);
 
     rosbag::View connections_view(bag);
     for (const rosbag::ConnectionInfo *info : connections_view.getConnections())
@@ -50,9 +47,7 @@ namespace rosbag_health_check
           ROS_INFO_STREAM("Did not pass health check " << info->topic);
         }
       }
-      topics.insert(info->topic);
     }
-
     return true;
   }
 
@@ -69,13 +64,16 @@ int main(int argc, char *argv[])
   std::string bag_file_name;
   nh.getParam("bag_file", bag_file_name);
 
+  boost::filesystem::path canonicalPath = boost::filesystem::canonical(bag_file_name);
+  bag_file_name = canonicalPath.string();
+
   if (bag_file_name.empty()) {
     ROS_INFO_STREAM("Bag file name parameter is missing " << bag_file_name);
-    return;
+    ros::shutdown();
   }
 
   if (!rosbag_check.Open(bag_file_name))
-    return;
+    ros::shutdown();
 
   ros::spin();
 }

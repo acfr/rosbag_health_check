@@ -4,6 +4,8 @@
 #include <set>
 #include <string>
 
+#include <boost/filesystem.hpp>
+
 #include <ros/ros.h>
 #include <rosbag/view.h>
 
@@ -24,7 +26,6 @@ namespace rosbag_health_check
     rosbag::Bag bag;
     std::shared_ptr<rosbag::View> view;
     rosbag::View::iterator iter;
-    std::set<std::string> topics;
   };
 }
 
