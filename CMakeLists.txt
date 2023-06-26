@@ -7,22 +7,21 @@ find_package(catkin REQUIRED COMPONENTS roscpp
 )
 
 catkin_package(
-  INCLUDE_DIRS include/
-  CATKIN_DEPENDS roscpp
-  xmlrpcpp
+  INCLUDE_DIRS 
+    include/${PROJECT_NAME}
+  CATKIN_DEPENDS 
+    roscpp
+    xmlrpcpp
 )
 
 include_directories(
-  ${catkin_INCLUDE_DIRS},
   include/${PROJECT_NAME}
+  ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME}_node src/rosbag_health_check.cpp)
-add_dependencies(
-  ${PROJECT_NAME}
-  ${catkin_EXPORTED_LIBRARIES}
-  ${catkin_LIBRARIES}
-)
+add_executable(${PROJECT_NAME}_node src/rosbag_health_check_node.cpp)
+
+roslaunch_add_file_check(launch)
 
 install(DIRECTORY launch
 		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
